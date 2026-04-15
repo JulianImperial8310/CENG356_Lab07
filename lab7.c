@@ -26,7 +26,7 @@ unsigned int buildIInstruction(unsigned char opcode,
     machineCode |= ((unsigned int)opcode & 0x3F) << 26;
     machineCode |= ((unsigned int)rs & 0x1F) << 21;
     machineCode |= ((unsigned int)rt & 0x1F) << 16;
-    machineCode = immediate & 0x0000FFFF;
+    machineCode |= immediate & 0x0000FFFF;
     //  machineCode should be OK now.
     return machineCode;  // finally return a 32-bit machine code.
 }
@@ -198,7 +198,7 @@ void setupInstructionMemory( char* base_memory_address,
                                             0,  // shamt is 0 for add instruction.
                                             0b100000); // funct code for add instruction.
 
-
+            write_dword(base_memory_address, codeOffset + i*4, machineCode);
 
 
         }
